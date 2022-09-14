@@ -3,4 +3,4 @@
 - nestjs
 - nextjs
 - graphql
-- typeorm# nest-next-blog
+- typeorm

@@ -1,0 +1,29 @@
+{
+  "name": "dingo",
+  "packageManager": "yarn@3.1.1",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -pt run build"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.3"
+  },
+  "version": "0.0.1",
+  "description": "personal blog",
+  "author": "jinhyuck cha",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jinhyuckcha/nest-next-blog"
+  },
+  "bugs": {
+    "url": "https://github.com/jinhyuckcha/nest-next-blog/issues"
+  },
+  "homepage": "https://github.com/jinhyuckcha/nest-next-blog#readme",
+  "dependencies": {
+    "@nestjs/schematics": "^9.0.3"
+  }
+}

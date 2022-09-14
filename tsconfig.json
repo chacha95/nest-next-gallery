@@ -1,0 +1,15 @@
+{
+  "references": [
+    {
+      "path": "./apps/backend"
+    },
+    {
+      "path": "./apps/frontend"
+    },
+  ],
+  "files": [],
+  "include": [],
+  "exclude": [
+    "**/node_modules"
+  ]
+}
