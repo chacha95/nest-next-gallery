@@ -57,10 +57,6 @@ lerna-debug.log*
 # postgres
 /redis-data
 
-# env
-.env
-.env.dev
-
 # elasticsearch-vscode (plugin)
 result.json
 

@@ -1,65 +1,46 @@
 import {
-  Container, Text, Wrap,
-  WrapItem
-} from "@chakra-ui/react";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+  Box, Container,
+  Heading, SimpleGrid, Text, useDisclosure
+} from '@chakra-ui/react';
 import { useState } from "react";
-import { getCuratedPhotos } from "../lib/api";
+import Card from '../components/card';
+import { getPosts } from '../lib/api';
 
-export default function Index({ data }) {
-  const [photos, setPhotos] = useState(data);
+export default function Index({posts}) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  const view = (post) => {
+    setSelectedPost(post);
+    onOpen();
+  };
 
   return (
-    <div>
-      <Head>
-        <title> Gallery</title>
-      </Head>
-      <Container>
-        <Text
-          fontWeight="semibold"
-          fontFamily={'monospace'}
-          mb="1rem"
-          textAlign="center"
-          fontSize={["5xl"]}
-        >
-          Gallery
-        </Text>
+    <Box minHeight="100vh" display="flex" flexDir="column">
+      <Container maxW="xl" mt="95px" flex={1}>
+        <Box textAlign="center">
+          <Heading as="h1" size="4xl">
+            ChaCha Gallery
+          </Heading>
+          <Text fontSize="lg" fontWeight="semibold" mt={2}>
+            upload your images
+          </Text>
+        </Box>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={6}>
+            {posts.map((post) => (
+              <Card key={post.id} post={post} onImageClick={view} />
+            ))}
+          </SimpleGrid>
       </Container>
-      <Wrap px="1rem" spacing={4} justify="center">
-        {photos.map((pic) => (
-          <WrapItem
-            key={pic.id}
-            boxShadow="base"
-            rounded="20px"
-            overflow="hidden"
-            bg="white"
-            lineHeight="0"
-            _hover={{ boxShadow: "dark-lg" }}
-          >
-            <Link href={`/photos/${pic.id}`}>
-              <a>
-                <Image
-                  src={pic.src.portrait}
-                  height={600}
-                  width={400}
-                  alt={pic.url}
-                />
-              </a>
-            </Link>
-          </WrapItem>
-        ))}
-      </Wrap>
-    </div>
+    </Box>
   );
 }
 
 export async function getServerSideProps() {
-  const data = await getCuratedPhotos();
+  const posts = await getPosts();
   return {
     props: {
-      data,
+      posts,
     },
   };
 }
