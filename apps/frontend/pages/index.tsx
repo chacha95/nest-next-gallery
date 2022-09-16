@@ -1,19 +1,15 @@
 import {
   Box, Container,
-  Heading, SimpleGrid, Text, useDisclosure
+  Heading, SimpleGrid, Text
 } from '@chakra-ui/react';
-import { useState } from "react";
+import { useState } from 'react';
+import { postInit } from '../components/api';
 import Card from '../components/card';
-import { getPosts } from '../lib/api';
+import UrlUploadForm from '../components/form';
 
-export default function Index({posts}) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedPost, setSelectedPost] = useState(null);
 
-  const view = (post) => {
-    setSelectedPost(post);
-    onOpen();
-  };
+export default function Index({initPosts}) {
+  const [posts, setPosts] = useState(initPosts)
 
   return (
     <Box minHeight="100vh" display="flex" flexDir="column">
@@ -26,9 +22,10 @@ export default function Index({posts}) {
             upload your images
           </Text>
         </Box>
+          {UrlUploadForm()}
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={6}>
             {posts.map((post) => (
-              <Card key={post.id} post={post} onImageClick={view} />
+              <Card key={post.id} post={post} />
             ))}
           </SimpleGrid>
       </Container>
@@ -37,10 +34,10 @@ export default function Index({posts}) {
 }
 
 export async function getServerSideProps() {
-  const posts = await getPosts();
+  const initPosts = await postInit();
   return {
     props: {
-      posts,
+      initPosts
     },
   };
 }

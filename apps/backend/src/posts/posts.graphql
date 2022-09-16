@@ -4,6 +4,15 @@ type Post {
   author: String!
 }
 
+input CreatePostInput {
+  url: String!
+  author: String!
+}
+
 type Query {
   posts: [Post]!
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): Post!
 }

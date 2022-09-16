@@ -1,6 +1,7 @@
 {
   "name": "nestjs-tutorial",
   "version": "0.0.1",
+  "main": "dist/src/main",
   "description": "nestjs-tutorial",
   "repository": "https://github.com/jinhyuckcha/nestjs-tutorial.git",
   "author": "JinHyuck Cha <jhcha@superb-ai.com>",
@@ -21,9 +22,10 @@
     "test:setup": "/bin/bash ./scripts/e2e-setup.sh",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "DOTENV_CONFIG_PATH=.env.test jest --config ./test/jest-e2e.json --detectOpenHandles --runInBand",
-    "db:reset": "./scripts/reset-db.sh",
+    "test:e2e": "DOTENV_CONFIG_PATH=.env.test jest --config ./test/jest-e2e.json --forceExit --runInBand",
+    "db:reset": "yarn typeorm schema:drop",
     "db:create": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:create  --config migration/ormconfig.ts",
+    "db:makeEmptyMigration": "yarn typeorm migration:create -n ",
     "db:makeMigration": "yarn typeorm migration:generate -n",
     "db:migrate": "yarn typeorm migration:run",
     "db:revertMigration": "yarn typeorm migration:revert"
@@ -45,6 +47,7 @@
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "dotenv": "^16.0.2",
     "express": "^4.17.3",
     "graphql": "^16.6.0",
     "helmet": "^5.0.2",
@@ -55,7 +58,9 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.4",
     "swagger-ui-express": "^4.3.0",
-    "typeorm": "^0.2.44"
+    "typeorm": "^0.2.44",
+    "ulid": "^2.3.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.0.0-alpha.7",

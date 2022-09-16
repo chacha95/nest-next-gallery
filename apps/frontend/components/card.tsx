@@ -1,4 +1,3 @@
-import { ArrowUpIcon } from '@chakra-ui/icons';
 import { Box, Flex, Img, Text, useColorModeValue } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
@@ -6,13 +5,12 @@ import { motion } from 'framer-motion';
 const MotionImg = motion(Img)
 
 
-export default function Card({ post, onImageClick }) {
+export default function Card({ post}) {
   const cardColor = useColorModeValue('gray.100', 'gray.700');
 
   return (
     <Box backgroundColor={cardColor} borderRadius={['sm', null, 'md']} overflow="hidden">
       <Box
-        onClick={() => onImageClick(post)}
         cursor="pointer"
         h="240px"
         position="relative"
@@ -28,10 +26,9 @@ export default function Card({ post, onImageClick }) {
         </Box>
         <Flex px="4" py="2" align="center" justify="space-between" w="100%">
           <Text fontSize={['xs', 'sm']}>
-            Posted by{post.author}
+            photo
           </Text>
           <Flex align="center">
-          <ArrowUpIcon />
         </Flex>
       </Flex>
     </Box>
